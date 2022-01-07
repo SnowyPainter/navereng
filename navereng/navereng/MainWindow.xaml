@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:local="clr-namespace:navereng"
         mc:Ignorable="d"
-        Title="Navereng" Closing="Window_Closing" Height="400" Width="300" MinHeight="400" MinWidth="200">
+        Title="Navereng" StateChanged="Window_StateChanged"  Closing="Window_Closing"  Height="400" Width="300" MinHeight="400" MinWidth="200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>

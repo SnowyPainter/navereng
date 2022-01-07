@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -38,42 +39,51 @@ namespace navereng
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
             notifyIcon.ContextMenuStrip.Items.Add("Exit", System.Drawing.Image.FromFile("exit.ico"), NotifyIconExit_Click);
         }
-
+        bool real_close = false;
         private void NotifyIconExit_Click(object? sender, EventArgs e)
         {
+            real_close = true;
             this.Close();
-        }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-            e.Cancel = true;
         }
         private void NotifyIcon_Click(object? sender, EventArgs e)
         {
+            this.Show();
             this.WindowState = WindowState.Normal;
             this.Activate();
+        }
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized) this.Hide();
+        }
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (!real_close)
+            {
+                e.Cancel = true;
+            }
+            this.Hide();
         }
 
         private async void TextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            MeaningListView.Items.Clear();  
+            MeaningListView.Items.Clear();
 
             string word = WordTextBox.Text;
             var res = await client.GetStringAsync($"https://ac-dict.naver.com/enko/ac?st=11&r_lt=11&q={word}");
             var rawJson = JsonConvert.DeserializeObject(res);
             var json = JObject.Parse(rawJson.ToString());
 
-            foreach(var junk in json["items"][0])
+            foreach (var junk in json["items"][0])
             {
                 var meanings = junk[2][0].ToString().Split(", ").ToList();
                 meanings.ForEach(x => {
                     x.Trim();
-                    if(x.Length > 0)
+                    if (x.Length > 0)
                         MeaningListView.Items.Add(x);
                 });
             }
-            
+
         }
     }
 }
