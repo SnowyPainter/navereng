@@ -1,0 +1,32 @@
+﻿<Window x:Class="navereng.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:local="clr-namespace:navereng"
+        mc:Ignorable="d"
+        Title="Navereng" Height="339" Width="294">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="264*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBox
+                Name="WordTextBox"
+                KeyUp="TextBox_KeyUp"
+                Style="{StaticResource MaterialDesignFilledTextBox}"
+                VerticalAlignment="Center"
+                AcceptsReturn="False"
+                MaxWidth="400"
+                materialDesign:HintAssist.Hint="영단어를 입력해주세요" Height="49" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border Margin="5 0 5 5" CornerRadius="10" BorderBrush="Black" BorderThickness="2">
+                <ListView Name="MeaningListView" Margin="5">
+                </ListView>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
