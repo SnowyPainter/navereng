@@ -6,24 +6,26 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:local="clr-namespace:navereng"
         mc:Ignorable="d"
-        Title="Navereng" Height="339" Width="294">
+        Title="Navereng" Closing="Window_Closing" Height="400" Width="300" MinHeight="400" MinWidth="200">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="59*"/>
-            <RowDefinition Height="264*"/>
+            <RowDefinition Height="64"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBox
+                Foreground="#09CE20"
                 Name="WordTextBox"
                 KeyUp="TextBox_KeyUp"
-                Style="{StaticResource MaterialDesignFilledTextBox}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 VerticalAlignment="Center"
                 AcceptsReturn="False"
-                MaxWidth="400"
+                Margin="5"
+                MaxWidth="300"
                 materialDesign:HintAssist.Hint="영단어를 입력해주세요" Height="49" />
         </Grid>
-        <Grid Grid.Row="1">
-            <Border Margin="5 0 5 5" CornerRadius="10" BorderBrush="Black" BorderThickness="2">
+        <Grid Grid.Row="1" Margin="0,5,0,0">
+            <Border Margin="5 0 5 5" CornerRadius="10" BorderBrush="#09CE20" BorderThickness="2">
                 <ListView Name="MeaningListView" Margin="5">
                 </ListView>
             </Border>
